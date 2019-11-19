@@ -3,20 +3,8 @@
 namespace Luft;
 
 use Luft\Models\Installation\Installation;
-use Luft\Models\Meta\Meta;
-use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
-use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Luft\Models\Meta\Type;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class Client
 {
@@ -69,6 +57,33 @@ class Client
     }
 
     /**
+     * @param float $lat
+     * @param float $lng
+     * @param float|null $maxDistance
+     * @param int|null $maxResults
+     * @return array
+     * @throws ExceptionInterface
+     */
+    public function getInstallations(float $lat, float $lng, ?float $maxDistance = null, ?int $maxResults = null): array
+    {
+        $response = $this->client->get('/v2/installations/nearest',
+            [
+                'headers' => $this->headers,
+                'query' =>
+                    [
+                        'lat' => $lat,
+                        'lng' => $lng,
+                        'maxDistance' => $maxDistance,
+                        'maxResults' => $maxResults
+                    ]
+            ]
+        );
+        $types = json_decode($response->getBody(), true);
+
+        return Serializer::getInstance()->denormalize($types, Installation::class.'[]', 'json');
+    }
+
+    /**
      * @param int $installationId
      * @return Installation
      * @throws ExceptionInterface
@@ -78,7 +93,7 @@ class Client
         $response = $this->client->get('/v2/installations/' . $installationId, ['headers' => $this->headers]);
         $types = json_decode($response->getBody(), true);
 
-        return \Luft\Serializer::getInstance()->denormalize($types, Installation::class, 'json');
+        return Serializer::getInstance()->denormalize($types, Installation::class, 'json');
     }
 
     /**
@@ -90,6 +105,6 @@ class Client
         $response = $this->client->get('/v2/meta/indexes', ['headers' => $this->headers]);
         $types = json_decode($response->getBody(), true);
 
-        return \Luft\Serializer::getInstance()->denormalize($types, Type::class . '[]', 'json');
+        return Serializer::getInstance()->denormalize($types, Type::class . '[]', 'json');
     }
 }
