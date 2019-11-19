@@ -1,0 +1,13 @@
+{
+    "name": "kszala/luft",
+    "description": "PHP Airly Client",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Krzysztof Szala",
+            "email": "avantar@gmail.com"
+        }
+    ],
+    "require": {}
+}
