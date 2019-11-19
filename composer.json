@@ -1,13 +1,26 @@
 {
-    "name": "avantar/luft",
-    "description": "PHP Airly Client",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Krzysztof Szala",
-            "email": "avantar@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "avantar/luft",
+  "description": "PHP Airly Client",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Krzysztof Szala",
+      "email": "avantar@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.3.0",
+    "guzzlehttp/guzzle": "6.4.1",
+    "symfony/serializer": "^4.3",
+    "symfony/property-access": "^4.3",
+    "symfony/property-info": "^4.3",
+    "phpdocumentor/reflection-docblock": "^4.3",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Luft\\": "src/"
+    }
+  }
 }
