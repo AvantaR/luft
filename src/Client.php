@@ -3,6 +3,7 @@
 namespace Luft;
 
 use Luft\Models\Installation\Installation;
+use Luft\Models\Measurement\Measurement;
 use Luft\Models\Meta\Type;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
@@ -80,7 +81,7 @@ class Client
         );
         $types = json_decode($response->getBody(), true);
 
-        return Serializer::getInstance()->denormalize($types, Installation::class.'[]', 'json');
+        return Serializer::getInstance()->denormalize($types, Installation::class . '[]', 'json');
     }
 
     /**
@@ -94,6 +95,32 @@ class Client
         $types = json_decode($response->getBody(), true);
 
         return Serializer::getInstance()->denormalize($types, Installation::class, 'json');
+    }
+
+    /**
+     * @param int $installationId
+     * @param bool|null $includeWind
+     * @param string|null $indexType
+     * @return Measurement
+     * @throws ExceptionInterface
+     */
+    public function getMeasurementsForInstallation(
+        int $installationId,
+        ?bool $includeWind = null,
+        ?string $indexType = null
+    ): Measurement {
+        $response = $this->client->get('/v2/measurements/installation', [
+            'headers' => $this->headers,
+            'query' =>
+                [
+                    'installationId' => $installationId,
+                    'includeWind' => $includeWind,
+                    'indexType' => $indexType
+                ]
+        ]);
+        $types = json_decode($response->getBody(), true);
+
+        return Serializer::getInstance()->denormalize($types, Measurement::class, 'json');
     }
 
     /**

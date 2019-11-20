@@ -39,9 +39,9 @@ class AveragedValues
 
     /**
      * @param string|null $fromDateTime
-     * @return AveragedValue
+     * @return AveragedValues
      */
-    public function setFromDateTime(?string $fromDateTime): AveragedValue
+    public function setFromDateTime(?string $fromDateTime): AveragedValues
     {
         $this->fromDateTime = $fromDateTime;
 
@@ -58,9 +58,9 @@ class AveragedValues
 
     /**
      * @param string|null $tillDateTime
-     * @return AveragedValue
+     * @return AveragedValues
      */
-    public function setTillDateTime(?string $tillDateTime): AveragedValue
+    public function setTillDateTime(?string $tillDateTime): AveragedValues
     {
         $this->tillDateTime = $tillDateTime;
 
@@ -77,9 +77,9 @@ class AveragedValues
 
     /**
      * @param Value[]|null $values
-     * @return AveragedValue
+     * @return AveragedValues
      */
-    public function setValues(?array $values): AveragedValue
+    public function setValues(?array $values): AveragedValues
     {
         $this->values = $values;
 
@@ -96,9 +96,9 @@ class AveragedValues
 
     /**
      * @param Index[]|null $indexes
-     * @return AveragedValue
+     * @return AveragedValues
      */
-    public function setIndexes(?array $indexes): AveragedValue
+    public function setIndexes(?array $indexes): AveragedValues
     {
         $this->indexes = $indexes;
 
@@ -115,9 +115,9 @@ class AveragedValues
 
     /**
      * @param Standard[]|null $standards
-     * @return AveragedValue
+     * @return AveragedValues
      */
-    public function setStandards(?array $standards): AveragedValue
+    public function setStandards(?array $standards): AveragedValues
     {
         $this->standards = $standards;
 
