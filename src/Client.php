@@ -60,13 +60,17 @@ class Client
     /**
      * @param float $lat
      * @param float $lng
-     * @param float|null $maxDistance
+     * @param float|null $maxDistanceKM
      * @param int|null $maxResults
      * @return array
      * @throws ExceptionInterface
      */
-    public function getInstallations(float $lat, float $lng, ?float $maxDistance = null, ?int $maxResults = null): array
-    {
+    public function getInstallations(
+        float $lat,
+        float $lng,
+        ?float $maxDistanceKM = null,
+        ?int $maxResults = null
+    ): array {
         $response = $this->client->get('/v2/installations/nearest',
             [
                 'headers' => $this->headers,
@@ -74,7 +78,7 @@ class Client
                     [
                         'lat' => $lat,
                         'lng' => $lng,
-                        'maxDistance' => $maxDistance,
+                        'maxDistanceKM' => $maxDistanceKM,
                         'maxResults' => $maxResults
                     ]
             ]
@@ -118,6 +122,65 @@ class Client
                     'indexType' => $indexType
                 ]
         ]);
+        $types = json_decode($response->getBody(), true);
+
+        return Serializer::getInstance()->denormalize($types, Measurement::class, 'json');
+    }
+
+    /**
+     * @param float $lat
+     * @param float $lng
+     * @param float|null $maxDistanceKM
+     * @param int|null $indexType
+     * @return Measurement
+     * @throws ExceptionInterface
+     */
+    public function getMeasurementsNearest(
+        float $lat,
+        float $lng,
+        ?float $maxDistanceKM = null,
+        ?int $indexType = null
+    ): Measurement {
+        $response = $this->client->get('/v2/measurements/nearest',
+            [
+                'headers' => $this->headers,
+                'query' =>
+                    [
+                        'lat' => $lat,
+                        'lng' => $lng,
+                        'maxDistanceKM' => $maxDistanceKM,
+                        'indexType' => $indexType
+                    ]
+            ]
+        );
+        $types = json_decode($response->getBody(), true);
+
+        return Serializer::getInstance()->denormalize($types, Measurement::class, 'json');
+    }
+
+    /**
+     * @param float $lat
+     * @param float $lng
+     * @param string|null $indexType
+     * @return Measurement
+     * @throws ExceptionInterface
+     */
+    public function getMeasurementsPoint(
+        float $lat,
+        float $lng,
+        ?string $indexType = null
+    ): Measurement {
+        $response = $this->client->get('/v2/measurements/point',
+            [
+                'headers' => $this->headers,
+                'query' =>
+                    [
+                        'lat' => $lat,
+                        'lng' => $lng,
+                        'indexType' => $indexType
+                    ]
+            ]
+        );
         $types = json_decode($response->getBody(), true);
 
         return Serializer::getInstance()->denormalize($types, Measurement::class, 'json');
