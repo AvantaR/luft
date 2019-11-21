@@ -1,0 +1,161 @@
+[
+  {
+    "name": "AIRLY_CAQI",
+    "levels": [
+      {
+        "minValue": 0,
+        "maxValue": 25,
+        "values": "0-25",
+        "level": "VERY_LOW",
+        "description": "Very Low",
+        "color": "#6BC926"
+      },
+      {
+        "minValue": 25,
+        "maxValue": 50,
+        "values": "25-50",
+        "level": "LOW",
+        "description": "Low",
+        "color": "#D1CF1E"
+      },
+      {
+        "minValue": 50,
+        "maxValue": 75,
+        "values": "50-75",
+        "level": "MEDIUM",
+        "description": "Medium",
+        "color": "#EFBB0F"
+      },
+      {
+        "minValue": 75,
+        "maxValue": 87.5,
+        "values": "75-87.5",
+        "level": "HIGH",
+        "description": "High",
+        "color": "#EF7120"
+      },
+      {
+        "minValue": 87.5,
+        "maxValue": 100,
+        "values": "87.5-100",
+        "level": "VERY_HIGH",
+        "description": "Very High",
+        "color": "#EF2A36"
+      },
+      {
+        "minValue": 100,
+        "maxValue": 125,
+        "values": "100-125",
+        "level": "EXTREME",
+        "description": "Extreme",
+        "color": "#B00057"
+      },
+      {
+        "minValue": 125,
+        "maxValue": null,
+        "values": "125+",
+        "level": "AIRMAGEDDON",
+        "description": "Airmageddon!",
+        "color": "#770078"
+      }
+    ]
+  },
+  {
+    "name": "CAQI",
+    "levels": [
+      {
+        "minValue": 0,
+        "maxValue": 25,
+        "values": "0-25",
+        "level": "VERY_LOW",
+        "description": "Very Low",
+        "color": "#79BC6A"
+      },
+      {
+        "minValue": 25,
+        "maxValue": 50,
+        "values": "25-50",
+        "level": "LOW",
+        "description": "Low",
+        "color": "#B9CE45"
+      },
+      {
+        "minValue": 50,
+        "maxValue": 75,
+        "values": "50-75",
+        "level": "MEDIUM",
+        "description": "Medium",
+        "color": "#EDC100"
+      },
+      {
+        "minValue": 75,
+        "maxValue": 100,
+        "values": "75-100",
+        "level": "HIGH",
+        "description": "High",
+        "color": "#F69208"
+      },
+      {
+        "minValue": 100,
+        "maxValue": null,
+        "values": "100+",
+        "level": "VERY_HIGH",
+        "description": "Very High",
+        "color": "#960018"
+      }
+    ]
+  },
+  {
+    "name": "PIJP",
+    "levels": [
+      {
+        "minValue": 0,
+        "maxValue": 1,
+        "values": "0-1",
+        "level": "VERY_GOOD",
+        "description": "Very Good",
+        "color": "#57B108"
+      },
+      {
+        "minValue": 1,
+        "maxValue": 3,
+        "values": "1-3",
+        "level": "GOOD",
+        "description": "Good",
+        "color": "#B0DD10"
+      },
+      {
+        "minValue": 3,
+        "maxValue": 5,
+        "values": "3-5",
+        "level": "MODERATE",
+        "description": "Moderate",
+        "color": "#FFD911"
+      },
+      {
+        "minValue": 5,
+        "maxValue": 7,
+        "values": "5-7",
+        "level": "SATISFACTORY",
+        "description": "Satisfactory",
+        "color": "#E58100"
+      },
+      {
+        "minValue": 7,
+        "maxValue": 10,
+        "values": "7-10",
+        "level": "BAD",
+        "description": "Bad",
+        "color": "#E50000"
+      },
+      {
+        "minValue": 10,
+        "maxValue": null,
+        "values": "10+",
+        "level": "VERY_BAD",
+        "description": "Very Bad",
+        "color": "#990000"
+      }
+    ]
+  }
+]

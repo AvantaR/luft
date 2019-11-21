@@ -17,7 +17,7 @@ class Serializer
     private static $instance;
 
     /**
-     * @return Serializer
+     * @return \Symfony\Component\Serializer\Serializer
      */
     public static function getInstance(): \Symfony\Component\Serializer\Serializer
     {

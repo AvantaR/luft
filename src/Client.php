@@ -2,9 +2,11 @@
 
 namespace Luft;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Luft\ApiClient\ApiClient;
+use Luft\HttpClient\HttpClient;
 use Luft\Models\Installation\Installation;
 use Luft\Models\Measurement\Measurement;
-use Luft\Models\Meta\Type;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class Client
@@ -36,9 +38,11 @@ class Client
 
     public function __construct(string $apiKey)
     {
-        $this->client = new \GuzzleHttp\Client(['base_uri' => $this->url]);
+        $httpClient = new HttpClient();
+        $serializer = Serializer::getInstance();
         $this->apiKey = $apiKey;
-        $this->setHeaders();
+        $this->client = new ApiClient($httpClient, $serializer);
+        $this->setDefaultHeaders();
     }
 
     /**
@@ -48,13 +52,15 @@ class Client
     {
         $this->language = $language;
         $this->headers['Accept-Language'] = $this->language;
+        $this->client->setHeaders($this->headers);
     }
 
-    private function setHeaders(): void
+    private function setDefaultHeaders(): void
     {
         $this->headers['Accept'] = 'application/json';
         $this->headers['Accept-Language'] = $this->language;
         $this->headers['apikey'] = $this->apiKey;
+        $this->client->setHeaders($this->headers);
     }
 
     /**
@@ -64,28 +70,15 @@ class Client
      * @param int|null $maxResults
      * @return array
      * @throws ExceptionInterface
+     * @throws GuzzleException
      */
-    public function getInstallations(
+    public function getInstallationsNearest(
         float $lat,
         float $lng,
         ?float $maxDistanceKM = null,
         ?int $maxResults = null
     ): array {
-        $response = $this->client->get('/v2/installations/nearest',
-            [
-                'headers' => $this->headers,
-                'query' =>
-                    [
-                        'lat' => $lat,
-                        'lng' => $lng,
-                        'maxDistanceKM' => $maxDistanceKM,
-                        'maxResults' => $maxResults
-                    ]
-            ]
-        );
-        $types = json_decode($response->getBody(), true);
-
-        return Serializer::getInstance()->denormalize($types, Installation::class . '[]', 'json');
+        return $this->client->getInstallationsNearest($lat, $lng, $maxDistanceKM, $maxResults);
     }
 
     /**
@@ -189,12 +182,10 @@ class Client
     /**
      * @return array
      * @throws ExceptionInterface
+     * @throws GuzzleException
      */
-    public function getMeta(): array
+    public function getMetaIndexes(): array
     {
-        $response = $this->client->get('/v2/meta/indexes', ['headers' => $this->headers]);
-        $types = json_decode($response->getBody(), true);
-
-        return Serializer::getInstance()->denormalize($types, Type::class . '[]', 'json');
+        return $this->client->getMetaIndexes();
     }
 }
