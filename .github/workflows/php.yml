@@ -16,15 +16,9 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
   
-    - name: PHPUnit (php-actions)
-      uses: php-actions/phpunit@v0.2.0
-      with:
-        # Configuration file location
-        config: # optional, default is test/unit/phpunit.xml
-        # JUnit output file location
-        junit: # optional, default is test/unit/_junit/junit.xml
-        # Memory limit
-        memory: # optional, default is 512M
+    - name: GitHub Action for PHPUnit
+      uses: pxgamer/phpunit-action@v1.0.0
+
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
