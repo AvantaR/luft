@@ -101,4 +101,20 @@ class ClientTest extends TestCase
         $this->assertIsArray($result->getHistory());
         $this->assertIsArray($result->getForecast());
     }
+
+
+    /**
+     * @test
+     */
+    public function getMeasurementsPoint(): void
+    {
+        $this->mockHandler->append(new Response(200, [],
+            file_get_contents(__DIR__ . '/data/measurements.nearest.json')));
+
+        $result = $this->client->getMeasurementsPoint(50.062006, 19.940984, 'AIRLY_CAQI');
+        $this->assertInstanceOf(Measurement::class, $result);
+        $this->assertInstanceOf(AveragedValues::class, $result->getCurrent());
+        $this->assertIsArray($result->getHistory());
+        $this->assertIsArray($result->getForecast());
+    }
 }

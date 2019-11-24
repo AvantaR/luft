@@ -114,9 +114,10 @@ class Client
      * @param float $lat
      * @param float $lng
      * @param float|null $maxDistanceKM
-     * @param int|null $indexType
+     * @param string|null $indexType
      * @return Measurement
      * @throws ExceptionInterface
+     * @throws GuzzleException
      */
     public function getMeasurementsNearest(
         float $lat,
@@ -141,20 +142,7 @@ class Client
         ?string $indexType = null
     ): Measurement
     {
-        $response = $this->client->get('/v2/measurements/point',
-            [
-                'headers' => $this->headers,
-                'query' =>
-                    [
-                        'lat' => $lat,
-                        'lng' => $lng,
-                        'indexType' => $indexType
-                    ]
-            ]
-        );
-        $types = json_decode($response->getBody(), true);
-
-        return Serializer::getInstance()->denormalize($types, Measurement::class, 'json');
+        $this->client->getMeasurementsPoint($lat, $lng, $indexType);
     }
 
     /**

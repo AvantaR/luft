@@ -59,9 +59,9 @@ class ApiClient
             'maxResults' => $maxResults
         ];
         $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/installations/nearest', $this->headers, $queryParams);
-        $types = json_decode($response->getBody(), true);
+        $body = json_decode($response->getBody(), true);
 
-        return $this->serializer->denormalize($types, Installation::class . '[]', 'json');
+        return $this->serializer->denormalize($body, Installation::class . '[]', 'json');
     }
 
     /**
@@ -73,9 +73,9 @@ class ApiClient
     public function getInstallation(int $installationId): Installation
     {
         $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/installations/' . $installationId, $this->headers);
-        $types = json_decode($response->getBody(), true);
+        $body = json_decode($response->getBody(), true);
 
-        return $this->serializer->denormalize($types, Installation::class, 'json');
+        return $this->serializer->denormalize($body, Installation::class, 'json');
     }
 
     /**
@@ -100,11 +100,20 @@ class ApiClient
 
         $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/measurements/installation', $this->headers,
             $queryParams);
-        $types = json_decode($response->getBody(), true);
+        $body = json_decode($response->getBody(), true);
 
-        return $this->serializer->denormalize($types, Measurement::class, 'json');
+        return $this->serializer->denormalize($body, Measurement::class, 'json');
     }
 
+    /**
+     * @param float $lat
+     * @param float $lng
+     * @param float|null $maxDistanceKM
+     * @param string|null $indexType
+     * @return Measurement
+     * @throws ExceptionInterface
+     * @throws GuzzleException
+     */
     public function getMeasurementsNearest(
         float $lat,
         float $lng,
@@ -120,9 +129,31 @@ class ApiClient
         ];
         $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/measurements/nearest', $this->headers,
             $queryParams);
-        $types = json_decode($response->getBody(), true);
+        $body = json_decode($response->getBody(), true);
 
-        return $this->serializer->denormalize($types, Measurement::class, 'json');
+        return $this->serializer->denormalize($body, Measurement::class, 'json');
+    }
+
+    public function getMeasurementsPoint(
+        float $lat,
+        float $lng,
+        ?string $indexType = null
+    ): Measurement
+    {
+        $queryParams = [
+            'lat' => $lat,
+            'lng' => $lng,
+            'indexType' => $indexType
+        ];
+        $response = $this->httpClient->request(
+            HttpClient::METHOD_GET,
+            '/v2/measurements/point',
+            $this->headers,
+            $queryParams
+        );
+        $body = json_decode($response->getBody(), true);
+
+        return $this->serializer->denormalize($body, Measurement::class, 'json');
     }
 
     /**

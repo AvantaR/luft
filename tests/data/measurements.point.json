@@ -1,0 +1,152 @@
+{
+  "current": {
+    "fromDateTime": "2019-11-24T12:38:57.029Z",
+    "tillDateTime": "2019-11-24T13:38:57.029Z",
+    "values": [
+      {
+        "name": "PM1",
+        "value": 19.85
+      },
+      {
+        "name": "PM25",
+        "value": 31.34
+      },
+      {
+        "name": "PM10",
+        "value": 60.21
+      },
+      {
+        "name": "PRESSURE",
+        "value": 1014.86
+      },
+      {
+        "name": "HUMIDITY",
+        "value": 94.28
+      },
+      {
+        "name": "TEMPERATURE",
+        "value": 3.34
+      }
+    ],
+    "indexes": [
+      {
+        "name": "AIRLY_CAQI",
+        "value": 56.38,
+        "level": "MEDIUM",
+        "description": "Well... It's been better.",
+        "advice": "Protect your lungs!",
+        "color": "#EFBB0F"
+      }
+    ],
+    "standards": [
+      {
+        "name": "WHO",
+        "pollutant": "PM25",
+        "limit": 25,
+        "percent": 125.36
+      },
+      {
+        "name": "WHO",
+        "pollutant": "PM10",
+        "limit": 50,
+        "percent": 120.43
+      }
+    ]
+  },
+  "history": [
+    {
+      "fromDateTime": "2019-11-23T13:00:00.000Z",
+      "tillDateTime": "2019-11-23T14:00:00.000Z",
+      "values": [
+        {
+          "name": "PM1",
+          "value": 20.43
+        },
+        {
+          "name": "PM25",
+          "value": 32.24
+        },
+        {
+          "name": "PM10",
+          "value": 61.57
+        },
+        {
+          "name": "PRESSURE",
+          "value": 1014.73
+        },
+        {
+          "name": "HUMIDITY",
+          "value": 91.75
+        },
+        {
+          "name": "TEMPERATURE",
+          "value": 3.73
+        }
+      ],
+      "indexes": [
+        {
+          "name": "AIRLY_CAQI",
+          "value": 57.23,
+          "level": "MEDIUM",
+          "description": "Well... It's been better.",
+          "advice": "Try to stay with your family at home.",
+          "color": "#EFBB0F"
+        }
+      ],
+      "standards": [
+        {
+          "name": "WHO",
+          "pollutant": "PM25",
+          "limit": 25,
+          "percent": 128.96
+        },
+        {
+          "name": "WHO",
+          "pollutant": "PM10",
+          "limit": 50,
+          "percent": 123.14
+        }
+      ]
+    }
+  ],
+  "forecast": [
+    {
+      "fromDateTime": "2019-11-24T13:00:00.000Z",
+      "tillDateTime": "2019-11-24T14:00:00.000Z",
+      "values": [
+        {
+          "name": "PM25",
+          "value": 29.62
+        },
+        {
+          "name": "PM10",
+          "value": 57.85
+        }
+      ],
+      "indexes": [
+        {
+          "name": "AIRLY_CAQI",
+          "value": 54.91,
+          "level": "MEDIUM",
+          "description": "Well... It's been better.",
+          "advice": "Try to stay with your family at home.",
+          "color": "#EFBB0F"
+        }
+      ],
+      "standards": [
+        {
+          "name": "WHO",
+          "pollutant": "PM25",
+          "limit": 25,
+          "percent": 118.49
+        },
+        {
+          "name": "WHO",
+          "pollutant": "PM10",
+          "limit": 50,
+          "percent": 115.7
+        }
+      ]
+    }
+  ]
+}
