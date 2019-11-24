@@ -21,7 +21,7 @@ class ClientTest extends TestCase
     private $mockHandler;
 
     /**
-     * @var Client
+     * @var ApiClient
      */
     private $client;
 
