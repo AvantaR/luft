@@ -1,0 +1,152 @@
+{
+  "current": {
+    "fromDateTime": "2019-11-24T12:31:27.486Z",
+    "tillDateTime": "2019-11-24T13:31:27.486Z",
+    "values": [
+      {
+        "name": "PM1",
+        "value": 19.79
+      },
+      {
+        "name": "PM25",
+        "value": 31.24
+      },
+      {
+        "name": "PM10",
+        "value": 60.04
+      },
+      {
+        "name": "PRESSURE",
+        "value": 1014.88
+      },
+      {
+        "name": "HUMIDITY",
+        "value": 94.12
+      },
+      {
+        "name": "TEMPERATURE",
+        "value": 3.46
+      }
+    ],
+    "indexes": [
+      {
+        "name": "AIRLY_CAQI",
+        "value": 56.27,
+        "level": "MEDIUM",
+        "description": "Well... It's been better.",
+        "advice": "Try to stay with your family at home.",
+        "color": "#EFBB0F"
+      }
+    ],
+    "standards": [
+      {
+        "name": "WHO",
+        "pollutant": "PM25",
+        "limit": 25,
+        "percent": 124.95
+      },
+      {
+        "name": "WHO",
+        "pollutant": "PM10",
+        "limit": 50,
+        "percent": 120.08
+      }
+    ]
+  },
+  "history": [
+    {
+      "fromDateTime": "2019-11-23T13:00:00.000Z",
+      "tillDateTime": "2019-11-23T14:00:00.000Z",
+      "values": [
+        {
+          "name": "PM1",
+          "value": 20.43
+        },
+        {
+          "name": "PM25",
+          "value": 32.24
+        },
+        {
+          "name": "PM10",
+          "value": 61.57
+        },
+        {
+          "name": "PRESSURE",
+          "value": 1014.73
+        },
+        {
+          "name": "HUMIDITY",
+          "value": 91.75
+        },
+        {
+          "name": "TEMPERATURE",
+          "value": 3.73
+        }
+      ],
+      "indexes": [
+        {
+          "name": "AIRLY_CAQI",
+          "value": 57.23,
+          "level": "MEDIUM",
+          "description": "Well... It's been better.",
+          "advice": "Sadly, the air is not quite as clean as it looks today.",
+          "color": "#EFBB0F"
+        }
+      ],
+      "standards": [
+        {
+          "name": "WHO",
+          "pollutant": "PM25",
+          "limit": 25,
+          "percent": 128.96
+        },
+        {
+          "name": "WHO",
+          "pollutant": "PM10",
+          "limit": 50,
+          "percent": 123.14
+        }
+      ]
+    }
+  ],
+  "forecast": [
+    {
+      "fromDateTime": "2019-11-24T13:00:00.000Z",
+      "tillDateTime": "2019-11-24T14:00:00.000Z",
+      "values": [
+        {
+          "name": "PM25",
+          "value": 29.62
+        },
+        {
+          "name": "PM10",
+          "value": 57.85
+        }
+      ],
+      "indexes": [
+        {
+          "name": "AIRLY_CAQI",
+          "value": 54.91,
+          "level": "MEDIUM",
+          "description": "Well... It's been better.",
+          "advice": "Something's hanging in the air. Take care!",
+          "color": "#EFBB0F"
+        }
+      ],
+      "standards": [
+        {
+          "name": "WHO",
+          "pollutant": "PM25",
+          "limit": 25,
+          "percent": 118.49
+        },
+        {
+          "name": "WHO",
+          "pollutant": "PM10",
+          "limit": 50,
+          "percent": 115.7
+        }
+      ]
+    }
+  ]
+}

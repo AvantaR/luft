@@ -6,6 +6,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Luft\HttpClient\HttpClient;
 use Luft\HttpClient\HttpClientInterface;
 use Luft\Models\Installation\Installation;
+use Luft\Models\Measurement\Measurement;
 use Luft\Models\Meta\Type;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -75,6 +76,53 @@ class ApiClient
         $types = json_decode($response->getBody(), true);
 
         return $this->serializer->denormalize($types, Installation::class, 'json');
+    }
+
+    /**
+     * @param int $installationId
+     * @param bool|null $includeWind
+     * @param string|null $indexType
+     * @return Measurement
+     * @throws ExceptionInterface
+     * @throws GuzzleException
+     */
+    public function getMeasurementsForInstallation(
+        int $installationId,
+        ?bool $includeWind = null,
+        ?string $indexType = null
+    ): Measurement
+    {
+        $queryParams = [
+            'installationId' => $installationId,
+            'includeWind' => $includeWind,
+            'indexType' => $indexType
+        ];
+
+        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/measurements/installation', $this->headers,
+            $queryParams);
+        $types = json_decode($response->getBody(), true);
+
+        return $this->serializer->denormalize($types, Measurement::class, 'json');
+    }
+
+    public function getMeasurementsNearest(
+        float $lat,
+        float $lng,
+        ?float $maxDistanceKM = null,
+        ?string $indexType = null
+    ): Measurement
+    {
+        $queryParams = [
+            'lat' => $lat,
+            'lng' => $lng,
+            'maxDistanceKM' => $maxDistanceKM,
+            'indexType' => $indexType
+        ];
+        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/measurements/nearest', $this->headers,
+            $queryParams);
+        $types = json_decode($response->getBody(), true);
+
+        return $this->serializer->denormalize($types, Measurement::class, 'json');
     }
 
     /**

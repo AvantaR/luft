@@ -1,0 +1,152 @@
+{
+  "current": {
+    "fromDateTime": "2019-11-24T12:23:12.384Z",
+    "tillDateTime": "2019-11-24T13:23:12.384Z",
+    "values": [
+      {
+        "name": "PM1",
+        "value": 13.66
+      },
+      {
+        "name": "PM25",
+        "value": 21.88
+      },
+      {
+        "name": "PM10",
+        "value": 34.64
+      },
+      {
+        "name": "PRESSURE",
+        "value": 1013.89
+      },
+      {
+        "name": "HUMIDITY",
+        "value": 83.81
+      },
+      {
+        "name": "TEMPERATURE",
+        "value": 8
+      }
+    ],
+    "indexes": [
+      {
+        "name": "AIRLY_CAQI",
+        "value": 36.46,
+        "level": "LOW",
+        "description": "Air is quite good.",
+        "advice": "Do you want to see what's outside? The air is nice today!",
+        "color": "#D1CF1E"
+      }
+    ],
+    "standards": [
+      {
+        "name": "WHO",
+        "pollutant": "PM25",
+        "limit": 25,
+        "percent": 87.5
+      },
+      {
+        "name": "WHO",
+        "pollutant": "PM10",
+        "limit": 50,
+        "percent": 69.27
+      }
+    ]
+  },
+  "history": [
+    {
+      "fromDateTime": "2019-11-23T13:00:00.000Z",
+      "tillDateTime": "2019-11-23T14:00:00.000Z",
+      "values": [
+        {
+          "name": "PM1",
+          "value": 17.08
+        },
+        {
+          "name": "PM25",
+          "value": 27.32
+        },
+        {
+          "name": "PM10",
+          "value": 43.7
+        },
+        {
+          "name": "PRESSURE",
+          "value": 1014.02
+        },
+        {
+          "name": "HUMIDITY",
+          "value": 84.25
+        },
+        {
+          "name": "TEMPERATURE",
+          "value": 6.2
+        }
+      ],
+      "indexes": [
+        {
+          "name": "AIRLY_CAQI",
+          "value": 45.53,
+          "level": "LOW",
+          "description": "Air is quite good.",
+          "advice": "How about going for a walk?",
+          "color": "#D1CF1E"
+        }
+      ],
+      "standards": [
+        {
+          "name": "WHO",
+          "pollutant": "PM25",
+          "limit": 25,
+          "percent": 109.27
+        },
+        {
+          "name": "WHO",
+          "pollutant": "PM10",
+          "limit": 50,
+          "percent": 87.4
+        }
+      ]
+    }
+  ],
+  "forecast": [
+    {
+      "fromDateTime": "2019-11-24T13:00:00.000Z",
+      "tillDateTime": "2019-11-24T14:00:00.000Z",
+      "values": [
+        {
+          "name": "PM25",
+          "value": 22.14
+        },
+        {
+          "name": "PM10",
+          "value": 36.21
+        }
+      ],
+      "indexes": [
+        {
+          "name": "AIRLY_CAQI",
+          "value": 36.91,
+          "level": "LOW",
+          "description": "Air is quite good.",
+          "advice": "You can go outside without any worries.",
+          "color": "#D1CF1E"
+        }
+      ],
+      "standards": [
+        {
+          "name": "WHO",
+          "pollutant": "PM25",
+          "limit": 25,
+          "percent": 88.58
+        },
+        {
+          "name": "WHO",
+          "pollutant": "PM10",
+          "limit": 50,
+          "percent": 72.41
+        }
+      ]
+    }
+  ]
+}

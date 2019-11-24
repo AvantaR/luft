@@ -77,7 +77,8 @@ class Client
         float $lng,
         ?float $maxDistanceKM = null,
         ?int $maxResults = null
-    ): array {
+    ): array
+    {
         return $this->client->getInstallationsNearest($lat, $lng, $maxDistanceKM, $maxResults);
     }
 
@@ -98,24 +99,15 @@ class Client
      * @param string|null $indexType
      * @return Measurement
      * @throws ExceptionInterface
+     * @throws GuzzleException
      */
     public function getMeasurementsForInstallation(
         int $installationId,
         ?bool $includeWind = null,
         ?string $indexType = null
-    ): Measurement {
-        $response = $this->client->get('/v2/measurements/installation', [
-            'headers' => $this->headers,
-            'query' =>
-                [
-                    'installationId' => $installationId,
-                    'includeWind' => $includeWind,
-                    'indexType' => $indexType
-                ]
-        ]);
-        $types = json_decode($response->getBody(), true);
-
-        return Serializer::getInstance()->denormalize($types, Measurement::class, 'json');
+    ): Measurement
+    {
+        $this->client->getMeasurementsForInstallation($installationId, $includeWind, $indexType);
     }
 
     /**
@@ -130,23 +122,10 @@ class Client
         float $lat,
         float $lng,
         ?float $maxDistanceKM = null,
-        ?int $indexType = null
-    ): Measurement {
-        $response = $this->client->get('/v2/measurements/nearest',
-            [
-                'headers' => $this->headers,
-                'query' =>
-                    [
-                        'lat' => $lat,
-                        'lng' => $lng,
-                        'maxDistanceKM' => $maxDistanceKM,
-                        'indexType' => $indexType
-                    ]
-            ]
-        );
-        $types = json_decode($response->getBody(), true);
-
-        return Serializer::getInstance()->denormalize($types, Measurement::class, 'json');
+        ?string $indexType = null
+    ): Measurement
+    {
+        $this->client->getMeasurementsNearest($lat, $lng, $maxDistanceKM, $indexType);
     }
 
     /**
@@ -160,7 +139,8 @@ class Client
         float $lat,
         float $lng,
         ?string $indexType = null
-    ): Measurement {
+    ): Measurement
+    {
         $response = $this->client->get('/v2/measurements/point',
             [
                 'headers' => $this->headers,
