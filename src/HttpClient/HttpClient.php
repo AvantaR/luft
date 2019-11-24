@@ -9,15 +9,12 @@ class HttpClient implements HttpClientInterface
 {
     private const BASE_URI = 'https://airapi.airly.eu';
 
+    public const METHOD_GET = 'GET';
+
     /**
      * @var Client
      */
     private $client;
-
-    /**
-     * @var string
-     */
-    private $apiKey;
 
     public function __construct($handler = null)
     {

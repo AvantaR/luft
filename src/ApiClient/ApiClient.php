@@ -2,10 +2,12 @@
 
 namespace Luft\ApiClient;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Luft\HttpClient\HttpClient;
 use Luft\HttpClient\HttpClientInterface;
 use Luft\Models\Installation\Installation;
 use Luft\Models\Meta\Type;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -39,31 +41,46 @@ class ApiClient
      * @param float|null $maxDistanceKM
      * @param int|null $maxResults
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @throws GuzzleException
+     * @throws ExceptionInterface
      */
     public function getInstallationsNearest(
         float $lat,
         float $lng,
         ?float $maxDistanceKM = null,
         ?int $maxResults = null
-    ): array {
+    ): array
+    {
         $queryParams = [
             'lat' => $lat,
             'lng' => $lng,
             'maxDistanceKM' => $maxDistanceKM,
             'maxResults' => $maxResults
         ];
-        $response = $this->httpClient->request('GET', '/v2/installations/nearest', $this->headers, $queryParams);
+        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/installations/nearest', $this->headers, $queryParams);
         $types = json_decode($response->getBody(), true);
 
         return $this->serializer->denormalize($types, Installation::class . '[]', 'json');
     }
 
     /**
+     * @param int $installationId
+     * @return Installation
+     * @throws ExceptionInterface
+     * @throws GuzzleException
+     */
+    public function getInstallation(int $installationId): Installation
+    {
+        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/installations/' . $installationId, $this->headers);
+        $types = json_decode($response->getBody(), true);
+
+        return $this->serializer->denormalize($types, Installation::class, 'json');
+    }
+
+    /**
      * @return array|object
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @throws GuzzleException
+     * @throws ExceptionInterface
      */
     public function getMetaIndexes()
     {

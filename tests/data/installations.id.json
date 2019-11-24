@@ -1,0 +1,24 @@
+{
+  "id": 2562,
+  "location": {
+    "latitude": 50.152562,
+    "longitude": 18.840011
+  },
+  "address": {
+    "country": "Poland",
+    "city": "Łaziska Górne",
+    "street": "Fryderyka Chopina",
+    "number": "10",
+    "displayAddress1": "Łaziska Górne",
+    "displayAddress2": "Fryderyka Chopina"
+  },
+  "elevation": 345.22,
+  "airly": true,
+  "sponsor": {
+    "id": 161,
+    "name": "Powiat mikołowski",
+    "description": "Airly Sensor's sponsor",
+    "logo": "https://cdn.airly.eu/logo/Powiat_mikolowski.jpg",
+    "link": null
+  }
+}

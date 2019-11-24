@@ -85,13 +85,11 @@ class Client
      * @param int $installationId
      * @return Installation
      * @throws ExceptionInterface
+     * @throws GuzzleException
      */
     public function getInstallation(int $installationId): Installation
     {
-        $response = $this->client->get('/v2/installations/' . $installationId, ['headers' => $this->headers]);
-        $types = json_decode($response->getBody(), true);
-
-        return Serializer::getInstance()->denormalize($types, Installation::class, 'json');
+        $this->client->getInstallation($installationId);
     }
 
     /**

@@ -54,7 +54,18 @@ class ClientTest extends TestCase
         $result = $this->client->getInstallationsNearest(50.062006, 19.940984);
         $this->assertIsArray($result);
         $this->assertInstanceOf(Installation::class, $result[0]);
-//        $this->assertIsArray($result[0]->getLevels());
-//        $this->assertInstanceOf(Level::class, $result[0]->getLevels()[0]);
+    }
+
+
+    /**
+     * @test
+     */
+    public function getInstallationsId(): void
+    {
+        $this->mockHandler->append(new Response(200, [],
+            file_get_contents(__DIR__ . '/data/installations.nearest.json')));
+
+        $result = $this->client->getInstallation(2562);
+        $this->assertInstanceOf(Installation::class, $result);
     }
 }
