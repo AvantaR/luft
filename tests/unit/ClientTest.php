@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Luft\ApiClient\ApiClient;
@@ -11,6 +12,7 @@ use Luft\Models\Meta\Level;
 use Luft\Models\Meta\Type;
 use Luft\Serializer;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class ClientTest extends TestCase
 {
@@ -33,6 +35,8 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @throws GuzzleException
+     * @throws ExceptionInterface
      */
     public function getMetaIndexes(): void
     {
@@ -42,11 +46,20 @@ class ClientTest extends TestCase
         $this->assertIsArray($result);
         $this->assertInstanceOf(Type::class, $result[0]);
         $this->assertIsArray($result[0]->getLevels());
+        $this->assertEquals('AIRLY_CAQI', $result[0]->getName());
         $this->assertInstanceOf(Level::class, $result[0]->getLevels()[0]);
+        $this->assertEquals(0, $result[0]->getLevels()[0]->getMinValue());
+        $this->assertEquals(25, $result[0]->getLevels()[0]->getMaxValue());
+        $this->assertEquals('0-25', $result[0]->getLevels()[0]->getValues());
+        $this->assertEquals('VERY_LOW', $result[0]->getLevels()[0]->getLevel());
+        $this->assertEquals('Very Low', $result[0]->getLevels()[0]->getDescription());
+        $this->assertEquals('#6BC926', $result[0]->getLevels()[0]->getColor());
     }
 
     /**
      * @test
+     * @throws GuzzleException
+     * @throws ExceptionInterface
      */
     public function getInstallationsNearest(): void
     {
@@ -58,9 +71,10 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(Installation::class, $result[0]);
     }
 
-
     /**
      * @test
+     * @throws GuzzleException
+     * @throws ExceptionInterface
      */
     public function getInstallationId(): void
     {
@@ -74,6 +88,8 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @throws ExceptionInterface
+     * @throws GuzzleException
      */
     public function getMeasurementsForInstallation(): void
     {
@@ -89,6 +105,8 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @throws ExceptionInterface
+     * @throws GuzzleException
      */
     public function getMeasurementsNearest(): void
     {
@@ -101,7 +119,6 @@ class ClientTest extends TestCase
         $this->assertIsArray($result->getHistory());
         $this->assertIsArray($result->getForecast());
     }
-
 
     /**
      * @test
