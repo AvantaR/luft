@@ -5,6 +5,8 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Luft\ApiClient\ApiClient;
 use Luft\HttpClient\HttpClient;
+use Luft\Models\Installation\Address;
+use Luft\Models\Installation\Coordinates;
 use Luft\Models\Installation\Installation;
 use Luft\Models\Measurement\AveragedValues;
 use Luft\Models\Measurement\Measurement;
@@ -43,6 +45,7 @@ class ClientTest extends TestCase
         $this->mockHandler->append(new Response(200, [], file_get_contents(__DIR__ . '/data/meta.indexes.json')));
 
         $result = $this->client->getMetaIndexes();
+
         $this->assertIsArray($result);
         $this->assertInstanceOf(Type::class, $result[0]);
         $this->assertIsArray($result[0]->getLevels());
@@ -67,8 +70,22 @@ class ClientTest extends TestCase
             file_get_contents(__DIR__ . '/data/installations.nearest.json')));
 
         $result = $this->client->getInstallationsNearest(50.062006, 19.940984);
+
         $this->assertIsArray($result);
         $this->assertInstanceOf(Installation::class, $result[0]);
+        $this->assertEquals(8077, $result[0]->getId());
+        $this->assertEquals(220.38, $result[0]->getElevation());
+        $this->assertEquals(true, $result[0]->isAirly());
+        $this->assertInstanceOf(Coordinates::class, $result[0]->getLocation());
+        $this->assertEquals(50.062006, $result[0]->getLocation()->getLatitude());
+        $this->assertEquals(19.940984, $result[0]->getLocation()->getLongitude());
+        $this->assertInstanceOf(Address::class, $result[0]->getAddress());
+        $this->assertEquals('Poland', $result[0]->getAddress()->getCountry());
+        $this->assertEquals('Kraków', $result[0]->getAddress()->getCity());
+        $this->assertEquals('Mikołajska', $result[0]->getAddress()->getStreet());
+        $this->assertEquals('4', $result[0]->getAddress()->getNumber());
+        $this->assertEquals('Kraków', $result[0]->getAddress()->getDisplayAddress1());
+        $this->assertEquals('Mikołajska', $result[0]->getAddress()->getDisplayAddress2());
     }
 
     /**
