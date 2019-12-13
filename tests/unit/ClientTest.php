@@ -116,8 +116,14 @@ class ClientTest extends TestCase
         $result = $this->client->getMeasurementsForInstallation(2562);
         $this->assertInstanceOf(Measurement::class, $result);
         $this->assertInstanceOf(AveragedValues::class, $result->getCurrent());
+        $this->assertEquals('2019-11-24T12:23:12.384Z', $result->getCurrent()->getFromDateTime());
+        $this->assertEquals('2019-11-24T13:23:12.384Z', $result->getCurrent()->getTillDateTime());
+        $this->assertEquals('PM1', $result->getCurrent()->getValues()[0]->getName());
+        $this->assertEquals(13.66, $result->getCurrent()->getValues()[0]->getValue());
         $this->assertIsArray($result->getHistory());
         $this->assertIsArray($result->getForecast());
+        $this->assertInstanceOf(AveragedValues::class, $result->getHistory()[0]);
+        $this->assertInstanceOf(AveragedValues::class, $result->getForecast()[0]);
     }
 
     /**
