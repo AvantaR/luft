@@ -10,7 +10,9 @@ use Luft\Models\Installation\Address;
 use Luft\Models\Installation\Coordinates;
 use Luft\Models\Installation\Installation;
 use Luft\Models\Measurement\AveragedValues;
+use Luft\Models\Measurement\Index;
 use Luft\Models\Measurement\Measurement;
+use Luft\Models\Measurement\Standard;
 use Luft\Models\Meta\Level;
 use Luft\Models\Meta\Type;
 use PHPUnit\Framework\TestCase;
@@ -97,7 +99,17 @@ class ClientTest extends TestCase
 
         $result = $this->client->getInstallation(2562);
         $this->assertInstanceOf(Installation::class, $result);
+        $this->assertEquals('Poland', $result->getAddress()->getCountry());
         $this->assertEquals('Łaziska Górne', $result->getAddress()->getCity());
+        $this->assertEquals('Fryderyka Chopina', $result->getAddress()->getStreet());
+        $this->assertEquals(10, $result->getAddress()->getNumber());
+        $this->assertEquals('Łaziska Górne', $result->getAddress()->getDisplayAddress1());
+        $this->assertEquals('Fryderyka Chopina', $result->getAddress()->getDisplayAddress2());
+        $this->assertEquals(161, $result->getSponsor()->getId());
+        $this->assertEquals('Powiat mikołowski', $result->getSponsor()->getName());
+        $this->assertEquals('Airly Sensor\'s sponsor', $result->getSponsor()->getDescription());
+        $this->assertEquals('https://cdn.airly.eu/logo/Powiat_mikolowski.jpg', $result->getSponsor()->getLogo());
+        $this->assertNull($result->getSponsor()->getLink());
     }
 
     /**
@@ -116,10 +128,15 @@ class ClientTest extends TestCase
         $this->assertEquals('2019-11-24T13:23:12.384Z', $result->getCurrent()->getTillDateTime());
         $this->assertEquals('PM1', $result->getCurrent()->getValues()[0]->getName());
         $this->assertEquals(13.66, $result->getCurrent()->getValues()[0]->getValue());
-        $this->assertIsArray($result->getHistory());
-        $this->assertIsArray($result->getForecast());
-        $this->assertInstanceOf(AveragedValues::class, $result->getHistory()[0]);
-        $this->assertInstanceOf(AveragedValues::class, $result->getForecast()[0]);
+        $this->assertContainsOnly(Index::class, $result->getCurrent()->getIndexes());
+        $this->assertContainsOnly(Standard::class, $result->getCurrent()->getStandards());
+        $this->assertEquals('WHO', $result->getCurrent()->getStandards()[0]->getName());
+        $this->assertEquals(25, $result->getCurrent()->getStandards()[0]->getLimit());
+        $this->assertEquals(87.5, $result->getCurrent()->getStandards()[0]->getPercent());
+        $this->assertEquals('PM25', $result->getCurrent()->getStandards()[0]->getPollutant());
+        $this->assertContainsOnly(AveragedValues::class, $result->getHistory());
+        $this->assertContainsOnly(AveragedValues::class, $result->getForecast());
+
     }
 
     /**
@@ -136,6 +153,13 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(AveragedValues::class, $result->getCurrent());
         $this->assertIsArray($result->getHistory());
         $this->assertIsArray($result->getForecast());
+        $this->assertIsArray($result->getCurrent()->getIndexes());
+        $this->assertEquals('AIRLY_CAQI', $result->getCurrent()->getIndexes()[0]->getName());
+        $this->assertEquals('56.27', $result->getCurrent()->getIndexes()[0]->getValue());
+        $this->assertEquals('MEDIUM', $result->getCurrent()->getIndexes()[0]->getLevel());
+        $this->assertEquals('Well... It\'s been better.', $result->getCurrent()->getIndexes()[0]->getDescription());
+        $this->assertEquals('Try to stay with your family at home.', $result->getCurrent()->getIndexes()[0]->getAdvice());
+        $this->assertEquals('#EFBB0F', $result->getCurrent()->getIndexes()[0]->getColor());
     }
 
     /**
