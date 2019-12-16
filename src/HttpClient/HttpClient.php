@@ -16,7 +16,10 @@ class HttpClient implements HttpClientInterface
      */
     private $client;
 
-    public function __construct($handler = null)
+    /**
+     * @param callable $handler
+     */
+    public function __construct(callable $handler = null)
     {
         $config = [
             'base_uri' => self::BASE_URI

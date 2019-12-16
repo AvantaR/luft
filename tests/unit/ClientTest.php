@@ -4,6 +4,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Luft\ApiClient\ApiClient;
+use Luft\Client;
 use Luft\HttpClient\HttpClient;
 use Luft\Models\Installation\Address;
 use Luft\Models\Installation\Coordinates;
@@ -12,7 +13,6 @@ use Luft\Models\Measurement\AveragedValues;
 use Luft\Models\Measurement\Measurement;
 use Luft\Models\Meta\Level;
 use Luft\Models\Meta\Type;
-use Luft\Serializer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
@@ -32,15 +32,14 @@ class ClientTest extends TestCase
     protected function setUp(): void
     {
         $this->mockHandler = new MockHandler();
-        $this->client = new ApiClient(new HttpClient($this->mockHandler), Serializer::getInstance());
+        $this->client = new Client('randomKey', new HttpClient($this->mockHandler));
     }
 
     /**
-     * @test
      * @throws GuzzleException
      * @throws ExceptionInterface
      */
-    public function getMetaIndexes(): void
+    public function testGetMetaIndexes(): void
     {
         $this->mockHandler->append(new Response(200, [], file_get_contents(__DIR__ . '/data/meta.indexes.json')));
 
@@ -60,11 +59,10 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @test
      * @throws GuzzleException
      * @throws ExceptionInterface
      */
-    public function getInstallationsNearest(): void
+    public function testGetInstallationsNearest(): void
     {
         $this->mockHandler->append(new Response(200, [],
             file_get_contents(__DIR__ . '/data/installations.nearest.json')));
@@ -89,11 +87,10 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @test
      * @throws GuzzleException
      * @throws ExceptionInterface
      */
-    public function getInstallationId(): void
+    public function testGetInstallationId(): void
     {
         $this->mockHandler->append(new Response(200, [],
             file_get_contents(__DIR__ . '/data/installations.id.json')));
@@ -104,11 +101,10 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @test
      * @throws ExceptionInterface
      * @throws GuzzleException
      */
-    public function getMeasurementsForInstallation(): void
+    public function testGetMeasurementsForInstallation(): void
     {
         $this->mockHandler->append(new Response(200, [],
             file_get_contents(__DIR__ . '/data/measurements.installation.json')));
@@ -127,11 +123,10 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @test
      * @throws ExceptionInterface
      * @throws GuzzleException
      */
-    public function getMeasurementsNearest(): void
+    public function testGetMeasurementsNearest(): void
     {
         $this->mockHandler->append(new Response(200, [],
             file_get_contents(__DIR__ . '/data/measurements.nearest.json')));
@@ -144,12 +139,12 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @test
+     * @throws ExceptionInterface
      */
-    public function getMeasurementsPoint(): void
+    public function testGetMeasurementsPoint(): void
     {
         $this->mockHandler->append(new Response(200, [],
-            file_get_contents(__DIR__ . '/data/measurements.nearest.json')));
+            file_get_contents(__DIR__ . '/data/measurements.point.json')));
 
         $result = $this->client->getMeasurementsPoint(50.062006, 19.940984, 'AIRLY_CAQI');
         $this->assertInstanceOf(Measurement::class, $result);

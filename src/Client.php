@@ -5,6 +5,7 @@ namespace Luft;
 use GuzzleHttp\Exception\GuzzleException;
 use Luft\ApiClient\ApiClient;
 use Luft\HttpClient\HttpClient;
+use Luft\HttpClient\HttpClientInterface;
 use Luft\Models\Installation\Installation;
 use Luft\Models\Measurement\Measurement;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
@@ -36,9 +37,14 @@ class Client
      */
     private $headers;
 
-    public function __construct(string $apiKey)
+    /**
+     * Client constructor.
+     * @param string $apiKey
+     * @param HttpClientInterface|null $httpClient
+     */
+    public function __construct(string $apiKey, HttpClientInterface $httpClient = null)
     {
-        $httpClient = new HttpClient();
+        $httpClient = $httpClient ?? new HttpClient();
         $serializer = Serializer::getInstance();
         $this->apiKey = $apiKey;
         $this->client = new ApiClient($httpClient, $serializer);
@@ -90,7 +96,7 @@ class Client
      */
     public function getInstallation(int $installationId): Installation
     {
-        $this->client->getInstallation($installationId);
+        return $this->client->getInstallation($installationId);
     }
 
     /**
@@ -107,7 +113,7 @@ class Client
         ?string $indexType = null
     ): Measurement
     {
-        $this->client->getMeasurementsForInstallation($installationId, $includeWind, $indexType);
+        return $this->client->getMeasurementsForInstallation($installationId, $includeWind, $indexType);
     }
 
     /**
@@ -126,7 +132,7 @@ class Client
         ?string $indexType = null
     ): Measurement
     {
-        $this->client->getMeasurementsNearest($lat, $lng, $maxDistanceKM, $indexType);
+        return $this->client->getMeasurementsNearest($lat, $lng, $maxDistanceKM, $indexType);
     }
 
     /**
@@ -142,7 +148,7 @@ class Client
         ?string $indexType = null
     ): Measurement
     {
-        $this->client->getMeasurementsPoint($lat, $lng, $indexType);
+        return $this->client->getMeasurementsPoint($lat, $lng, $indexType);
     }
 
     /**
