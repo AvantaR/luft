@@ -8,10 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Set default PHP7.4
+        run: sudo update-alternatives --set php /usr/bin/php7.4
+        
       - uses: actions/checkout@v1
-        with:
-            php-version: '7.4'
-            
+
       - name: Validate composer.json and composer.lock
         run: composer validate
 
