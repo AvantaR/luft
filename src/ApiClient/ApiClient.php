@@ -50,15 +50,19 @@ class ApiClient
         float $lng,
         ?float $maxDistanceKM = null,
         ?int $maxResults = null
-    ): array
-    {
+    ): array {
         $queryParams = [
             'lat' => $lat,
             'lng' => $lng,
             'maxDistanceKM' => $maxDistanceKM,
             'maxResults' => $maxResults
         ];
-        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/installations/nearest', $this->headers, $queryParams);
+        $response = $this->httpClient->request(
+            HttpClient::METHOD_GET,
+            '/v2/installations/nearest',
+            $this->headers,
+            $queryParams
+        );
         $body = json_decode($response->getBody(), true);
 
         return $this->serializer->denormalize($body, Installation::class . '[]', 'json');
@@ -72,7 +76,11 @@ class ApiClient
      */
     public function getInstallation(int $installationId): Installation
     {
-        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/installations/' . $installationId, $this->headers);
+        $response = $this->httpClient->request(
+            HttpClient::METHOD_GET,
+            '/v2/installations/' . $installationId,
+            $this->headers
+        );
         $body = json_decode($response->getBody(), true);
 
         return $this->serializer->denormalize($body, Installation::class, 'json');
@@ -90,16 +98,19 @@ class ApiClient
         int $installationId,
         ?bool $includeWind = null,
         ?string $indexType = null
-    ): Measurement
-    {
+    ): Measurement {
         $queryParams = [
             'installationId' => $installationId,
             'includeWind' => $includeWind,
             'indexType' => $indexType
         ];
 
-        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/measurements/installation', $this->headers,
-            $queryParams);
+        $response = $this->httpClient->request(
+            HttpClient::METHOD_GET,
+            '/v2/measurements/installation',
+            $this->headers,
+            $queryParams
+        );
         $body = json_decode($response->getBody(), true);
 
         return $this->serializer->denormalize($body, Measurement::class, 'json');
@@ -119,16 +130,19 @@ class ApiClient
         float $lng,
         ?float $maxDistanceKM = null,
         ?string $indexType = null
-    ): Measurement
-    {
+    ): Measurement {
         $queryParams = [
             'lat' => $lat,
             'lng' => $lng,
             'maxDistanceKM' => $maxDistanceKM,
             'indexType' => $indexType
         ];
-        $response = $this->httpClient->request(HttpClient::METHOD_GET, '/v2/measurements/nearest', $this->headers,
-            $queryParams);
+        $response = $this->httpClient->request(
+            HttpClient::METHOD_GET,
+            '/v2/measurements/nearest',
+            $this->headers,
+            $queryParams
+        );
         $body = json_decode($response->getBody(), true);
 
         return $this->serializer->denormalize($body, Measurement::class, 'json');
@@ -138,8 +152,7 @@ class ApiClient
         float $lat,
         float $lng,
         ?string $indexType = null
-    ): Measurement
-    {
+    ): Measurement {
         $queryParams = [
             'lat' => $lat,
             'lng' => $lng,

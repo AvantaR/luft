@@ -1,4 +1,5 @@
 <?php
+
 namespace Luft\HttpClient;
 
 interface HttpClientInterface

@@ -147,7 +147,4 @@ class Level
 
         return $this;
     }
-
-
 }
-

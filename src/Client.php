@@ -83,8 +83,7 @@ class Client
         float $lng,
         ?float $maxDistanceKM = null,
         ?int $maxResults = null
-    ): array
-    {
+    ): array {
         return $this->client->getInstallationsNearest($lat, $lng, $maxDistanceKM, $maxResults);
     }
 
@@ -111,8 +110,7 @@ class Client
         int $installationId,
         ?bool $includeWind = null,
         ?string $indexType = null
-    ): Measurement
-    {
+    ): Measurement {
         return $this->client->getMeasurementsForInstallation($installationId, $includeWind, $indexType);
     }
 
@@ -130,8 +128,7 @@ class Client
         float $lng,
         ?float $maxDistanceKM = null,
         ?string $indexType = null
-    ): Measurement
-    {
+    ): Measurement {
         return $this->client->getMeasurementsNearest($lat, $lng, $maxDistanceKM, $indexType);
     }
 
@@ -146,8 +143,7 @@ class Client
         float $lat,
         float $lng,
         ?string $indexType = null
-    ): Measurement
-    {
+    ): Measurement {
         return $this->client->getMeasurementsPoint($lat, $lng, $indexType);
     }
 
